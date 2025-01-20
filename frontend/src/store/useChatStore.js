@@ -14,7 +14,9 @@ export const useChatStore = create((set, get) => ({
 
     setSelectedUser: (selectedUser) => {
         set({ selectedUser })
-        delete get().notiUserIds[selectedUser._id]
+        if (selectedUser) {
+            delete get().notiUserIds[selectedUser._id]
+        }
     },
 
     getUsers: async () => {
