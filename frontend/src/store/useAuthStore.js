@@ -68,6 +68,7 @@ export const useAuthStore = create((set, get) => ({
 
       get().disconnectSocket()
       useChatStore.setState({ selectedUser: null })
+      useChatStore.setState({ notiUserIds: {} })
     } catch (error) {
       toast.error(error.response.data.message)
     } 
