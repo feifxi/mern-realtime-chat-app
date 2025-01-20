@@ -67,6 +67,7 @@ export const useAuthStore = create((set, get) => ({
       toast.success("Logged out successfully")
 
       get().disconnectSocket()
+      useChatStore.setState({ selectedUser: null })
     } catch (error) {
       toast.error(error.response.data.message)
     } 
@@ -101,8 +102,22 @@ export const useAuthStore = create((set, get) => ({
 
     socket.on('getOnlineUsers', (userIds) => {
       set({ onlineUsers: userIds })
-      // to show online user first whenever they're online
-      useChatStore.getState().sortedOnlineUsers()
+      useChatStore.getState().sortedOnlineUsers() // to show online user first whenever they're online
+
+    })
+    // listen to notification
+    socket.on('notification', (noti) => {
+      if (noti.newMessage) {
+        const { selectedUser } = useChatStore.getState()
+        const { senderId } = noti.newMessage
+        if (selectedUser?._id === senderId) return;
+
+        const { notiUserIds } = useChatStore.getState()
+        const numberOfNoti =  notiUserIds[senderId]
+        notiUserIds[senderId] = numberOfNoti ? numberOfNoti + 1 : 1 
+        
+        useChatStore.setState({ notiUserIds:{...notiUserIds}})
+      }
     })
   },
 
@@ -114,5 +129,5 @@ export const useAuthStore = create((set, get) => ({
   isUserOnline: (userId) => {
     const { onlineUsers } = get()
     return onlineUsers.includes(userId)
-  }
+  },
 }));

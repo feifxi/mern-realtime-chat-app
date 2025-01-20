@@ -6,7 +6,7 @@ import avatar from '../assets/image/avatar.jpg'
 import { useAuthStore } from "../store/useAuthStore";
 
 const Sidebar = () => {
-  const { users, getUsers, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
+  const { users, getUsers, selectedUser, setSelectedUser, isUsersLoading, notiUserIds } = useChatStore();
   const { onlineUsers, isUserOnline } = useAuthStore()
 
   const [showOnlineOnly, setShowOnlineOnly] = useState(false)
@@ -18,6 +18,8 @@ const Sidebar = () => {
   const filteredUsers = showOnlineOnly 
   ? users.filter((user) => isUserOnline(user._id)) 
   : users
+
+  const onlineNumber = (onlineUsers.length === 0) ? 0 : onlineUsers.length - 1 
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -39,7 +41,7 @@ const Sidebar = () => {
             />
             <span className="text-sm">Show online only</span>
           </label>
-          <span className="text-xs text-zinc-500">({onlineUsers.length - 1} online)</span>
+          <span className="text-xs text-zinc-500">({onlineNumber} online)</span>
         </div>
       </div>
 
@@ -49,7 +51,7 @@ const Sidebar = () => {
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className={`p-3 flex justify-center lg:justify-start items-center gap-3 ${
+            className={`relative p-3 flex justify-center lg:justify-start items-center gap-3 ${
               selectedUser?._id === user._id ? 'bg-base-300 ring-1 ring-base-300' : ''
             }`}
           >
@@ -73,6 +75,11 @@ const Sidebar = () => {
                 { isUserOnline(user._id) ? 'Online' : 'Offline' }
               </p>
             </div>
+            { notiUserIds[user._id] && (
+              <span className="absolute right-5 rounded-full bg-red-500 size-6 text-white flex justify-center items-center ml-auto max-lg:hidden">
+                { notiUserIds[user._id] > 9 ? '9+' : notiUserIds[user._id] }
+              </span>
+            )}
           </button>
         ))}
 

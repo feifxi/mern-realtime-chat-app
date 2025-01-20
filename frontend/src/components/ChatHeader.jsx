@@ -10,7 +10,7 @@ const ChatHeader = () => {
     <div className="flex justify-between items-center px-4 py-2.5 border-b border-base-300">
       <div className="flex gap-2">
         <img 
-          src={ selectedUser.profilepic || avatar }
+          src={ selectedUser.profilePic || avatar }
           alt="avatar"
           className="size-10 rounded-full object-cover" 
         />

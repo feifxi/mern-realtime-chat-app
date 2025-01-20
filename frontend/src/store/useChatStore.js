@@ -6,6 +6,7 @@ import { useAuthStore } from './useAuthStore'
 export const useChatStore = create((set, get) => ({
     messages: [],
     users: [],
+    notiUserIds: {},
     selectedUser: null,
     isMessagesLoading: false,
     isUsersLoading: false,
@@ -13,6 +14,7 @@ export const useChatStore = create((set, get) => ({
 
     setSelectedUser: (selectedUser) => {
         set({ selectedUser })
+        delete get().notiUserIds[selectedUser._id]
     },
 
     getUsers: async () => {
