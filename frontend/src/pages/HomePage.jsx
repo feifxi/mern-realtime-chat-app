@@ -7,7 +7,7 @@ const HomePage = () => {
   const { selectedUser } = useChatStore() 
 
   return (
-    <section className="px-4 py-5">
+    <section className="sm:px-4 sm:py-5">
       <div className="max-w-screen-lg h-[calc(100vh-8rem)] mx-auto rounded-lg bg-base-100 shadow-xl">
         <div className="flex h-full">
           <Sidebar />

@@ -1,3 +1,3 @@
-Visit this project 
+Visit this project (may take 40-50sec due to freezing mode)
 https://mern-realtime-chatapp-ddyw.onrender.com
-- may take 30-40 second in the first visit (it free plan hosting im broke)
+

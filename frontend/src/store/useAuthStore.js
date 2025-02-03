@@ -3,6 +3,7 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { io } from 'socket.io-client'
 import { useChatStore } from "./useChatStore";
+import notificationSound from '../assets/sounds/notification.mp3'
 
 const BASE_URL = import.meta.env.MODE === 'development' ? 'http://localhost:5001' : '/';
 
@@ -118,6 +119,12 @@ export const useAuthStore = create((set, get) => ({
         notiUserIds[senderId] = numberOfNoti ? numberOfNoti + 1 : 1 
         
         useChatStore.setState({ notiUserIds:{...notiUserIds}})
+
+        const sound = new Audio(notificationSound);
+			  sound.play();
+        toast('New Message!', {
+          icon: '🔔'
+        });
       }
     })
   },

@@ -12,6 +12,7 @@ import { useThemeStore } from './store/useThemeStore.js';
 import TicTacToe from './pages/TicTacToe.jsx'
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import Game from './pages/Game.jsx';
 
 export default function App() {
   const { authUser, checkAuth, isCheckingAuth }  = useAuthStore()
@@ -39,8 +40,8 @@ export default function App() {
           <Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' /> } />
           <Route path='/settings' element={<SettingsPage />} />
           <Route path='/profile' element={authUser ? <ProfilePage /> : <Navigate to='/login' /> } />
-          <Route path='/game' element={authUser ? <TicTacToe /> : <Navigate to='/login' /> } />
-          <Route path='/admin' element={authUser?._id.toString() === '678cff619ca99eec579aa89f' ? <AdminDashboard /> : <Navigate to='/' /> } />
+          <Route path='/game' element={authUser ? <Game /> : <Navigate to='/login' /> } />
+          <Route path='/admin' element={authUser?._id.toString() === '678e93b7f987337cb5ed911d' ? <AdminDashboard /> : <Navigate to='/' /> } />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>

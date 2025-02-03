@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "../lib/axios";
 import { formatMessageTime } from "../lib/utils";
 import avatar from "../assets/image/avatar.jpg";
@@ -6,11 +6,12 @@ import { LuArrowBigRight } from "react-icons/lu";
 import { useAuthStore } from "../store/useAuthStore";
 import toast from "react-hot-toast";
 import { TbMessageFilled } from "react-icons/tb";
+import { useChatScroll } from "../hooks/useChatScroll";
 
 const AdminDashboard = () => {
   const [allMessages, setAllMessages] = useState([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
-  const messageEndRef = useRef(null);
+  const { messageEndRef, scrollToBottom } = useChatScroll(allMessages)
   const { socket } = useAuthStore();
 
   const fetchAllMessages = async () => {
@@ -47,19 +48,9 @@ const AdminDashboard = () => {
     };
   }, []);
 
-  const scrollToBottom = () => {
-    if (allMessages && messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleImageLoad = () => {
+  const handleImageLoaded = () => {
     scrollToBottom();
   };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [allMessages]);
 
   if (loadingMessages)
     return (
@@ -102,7 +93,7 @@ const AdminDashboard = () => {
                         src={message.image}
                         alt="chat image"
                         className="w-[200px] object-cover rounded-md mb-3"
-                        onLoad={handleImageLoad}
+                        onLoad={handleImageLoaded}
                       />
                     )}
                     {message.text && (

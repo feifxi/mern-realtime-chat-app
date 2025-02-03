@@ -79,7 +79,7 @@ export const sendMessage = async (req, res) => {
 
 export const getAllMessages = async (req, res) => {
     try {
-        if (req?.user._id.toString() !== '678cff619ca99eec579aa89f') {
+        if (req?.user._id.toString() !== '678e93b7f987337cb5ed911d') {
             return res.status(401).json({ message: 'Permission Denied' })
         }
         const messages = await Message.find().populate([

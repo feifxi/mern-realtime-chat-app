@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { useChatStore } from "../store/useChatStore"
 import ChatHeader from "./ChatHeader"
 import MessageInput from "./MessageInput"
@@ -6,37 +6,26 @@ import { useAuthStore } from "../store/useAuthStore"
 import avatar from '../assets/image/avatar.jpg'
 import { formatMessageTime } from "../lib/utils"
 import ChatSkeleton from "./skeletons/ChatSkeleton"
+import { useChatScroll } from "../hooks/useChatScroll"
 
 const ChatContainer = () => {
   const { selectedUser ,messages, getMessages, isMessagesLoading, subscribeToMessages, unsubscribeFromMessages } = useChatStore()
   const { authUser } = useAuthStore()
-  const messageEndRef = useRef(null)
-
+  const { scrollToBottom, messageEndRef } = useChatScroll(messages)
+  
   useEffect(() => {
     getMessages(selectedUser._id)
-
     subscribeToMessages()
 
     return () => unsubscribeFromMessages()
-  }, [selectedUser._id, getMessages], subscribeToMessages, unsubscribeFromMessages)
+  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages])
 
 
-  const scrollToBottom = () => {
-    if (messages && messageEndRef.current) {
-      messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleImageLoad = () => {
+  const handleImageLoaded = () => {
     scrollToBottom()
   }
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-
-  if (isMessagesLoading) return (<ChatSkeleton />)
+  if (isMessagesLoading) return <ChatSkeleton />
 
   return (
     <div className="flex-1 flex flex-col">
@@ -77,7 +66,7 @@ const ChatContainer = () => {
                 src={message.image} 
                 alt="chat image" 
                 className="w-[200px] object-cover rounded-md mb-3"
-                onLoad={handleImageLoad}
+                onLoad={handleImageLoaded}
               />
             )}
             { message.text && (
