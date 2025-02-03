@@ -65,30 +65,11 @@ export const sendMessage = async (req, res) => {
 
             // send notification
             io.to(receiverSocketId).emit("notification", { newMessage })
-            // send to admin dashboard
-            io.emit("dashboardMessages", newMessage)
         }
 
         res.status(201).json(newMessage)
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error' })
         console.log(`Error in sendMessage controller : ${error.message}`)
-    }
-}
-
-
-export const getAllMessages = async (req, res) => {
-    try {
-        if (req?.user._id.toString() !== '678e93b7f987337cb5ed911d') {
-            return res.status(401).json({ message: 'Permission Denied' })
-        }
-        const messages = await Message.find().populate([
-            { path: 'senderId', select: '-password' }, 
-            { path: 'receiverId', select: '-password' }
-        ])
-        res.status(200).json(messages)
-    } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error' })
-        console.log(`Error in getAllMessages admin controller : ${error.message}`)
     }
 }

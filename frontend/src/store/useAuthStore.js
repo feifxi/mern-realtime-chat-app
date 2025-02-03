@@ -105,9 +105,8 @@ export const useAuthStore = create((set, get) => ({
     socket.on('getOnlineUsers', (userIds) => {
       set({ onlineUsers: userIds })
       useChatStore.getState().sortedOnlineUsers() // to show online user first whenever they're online
-
     })
-    // listen to notification
+
     socket.on('notification', (noti) => {
       if (noti.newMessage) {
         const { selectedUser } = useChatStore.getState()
