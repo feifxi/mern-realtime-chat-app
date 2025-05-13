@@ -1,4 +1,7 @@
-### Setup .env file
+# Realtime Chat App using MERN stack (Recommended for deploy on [Render.com](https://render.com/))
+
+
+### Setup .env file for backend
 
 ```bash
 NODE_ENV=development
@@ -10,13 +13,20 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_API_SECRET=your_cloudinary_api_secret 
 ```
 
-### Run this app locally
+### dev command (both frontend and backend)
+
+```shell
+npm run dev
+```
+
+### build command (run at the root)
 
 ```shell
 npm run build
 ```
 
-### Start the app
+### Start the app (run at the root)
+
 
 ```shell
 npm run start
