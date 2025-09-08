@@ -67,8 +67,5 @@ A sleek, real-time chat application built with the MERN stack—perfect for lear
    npm start
    ```
 
-5. **Access the app**
-   Open your browser and navigate to `http://localhost:5001`
-
 ---
 *Built for fun ❤️*
