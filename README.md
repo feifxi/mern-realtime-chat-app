@@ -67,5 +67,31 @@ A sleek, real-time chat application built with the MERN stack—perfect for lear
    npm start
    ```
 
+## 🌐 Live Demo & Deployment
+
+### Recommended Deployment: Render.com
+
+For easy and free deployment of this chat application, I recommend using **Render.com**:
+
+1. **Create a Render account** at [render.com](https://render.com)
+
+2. **Deploy Application:**
+   - Create a new "Web Service" on Render
+   - Connect your GitHub repository
+   - Set build command: `npm run build`
+   - Set start command: `npm start`
+   - Add environment variables in Render dashboard
+
+3. **Database:**
+   - Use MongoDB Atlas (free tier) for cloud database
+   - Update your MongoDB connection string in environment variables
+
+**Why Render.com?**
+- ✅ Free tier available
+- ✅ Easy GitHub integration
+- ✅ Automatic deployments
+- ✅ Built-in SSL certificates
+- ✅ Perfect for student projects like this one
+
 ---
 *Built for fun ❤️*
