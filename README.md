@@ -7,13 +7,13 @@ A sleek, real-time chat application built with the MERN stack—perfect for lear
 ## 🚀 Features
 - Real-time messaging between users
 - User authentication with JWT
-- Responsive UI with React
+- Responsive UI with React and Tailwind CSS
 - Image upload support (via Cloudinary)
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend:** React, Tailwind
+- **Frontend:** React, Tailwind CSS
 - **Backend:** Node.js, Express, Socket.io, MongoDB, JWT, Cloudinary
 
 ---
